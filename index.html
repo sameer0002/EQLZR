@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+    <title>EQLZR</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Inter, Inter Placeholder, sans-serif;
+            background: linear-gradient(135deg, #faf5fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .logo::before {
+            content: ''; #addlogohere
+            margin-right: 10px;
+        }
+
+        .join-waitlist {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        .beta-notice {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .beta-notice a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .email-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .email-form input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .email-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('waitlistForm');
+            var emailInput = document.getElementById('email');
+            var joinWaitlistBtn = document.getElementById('joinWaitlistBtn');
+
+            // Add click event listener to the Join Waitlist button
+            if (joinWaitlistBtn) {
+                joinWaitlistBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (emailInput) {
+                        emailInput.focus();
+                        // Optionally, scroll to the form if it's not in view
+                        form.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    var email = emailInput.value;
+
+                    fetch('https://script.google.com/macros/s/AKfycbyS_aJ7xRotAbDts8WzkWkK3ir8gclTGKMwT3heKLDMoZAXoElilJlU1kR1mR4z0N27SQ/exec', {
+                        method: 'POST',
+                        mode: 'no-cors', // Add this line
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'email=' + encodeURIComponent(email)
+                    })
+                        .then(() => {
+                            // We can't access the response in no-cors mode, so we just assume success
+                            alert('Thanks for joining the waitlist');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            } else {
+                console.error('Form with id "waitlistForm" not found');
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><img src="logo_black.png" alt="EQLZR">EQLZR</div>
+            <a href="#" class="join-waitlist" id="joinWaitlistBtn">Join Waitlist</a>
+        </header>
+
+        <div class="main-content">
+            <div class="beta-notice">
+                Beta version releases soon. Join Waitlist.   
+            </div>
+
+            <h1>Gas Prediction Marketplace</h1>
+
+            <p class="subtitle">Don't let your DAPP stop because of unpredictable gas spikes</p>
+
+            <form id="waitlistForm" class="email-form">
+                <input id="email" type="email" placeholder="Your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+
+        <footer class="footer">
+            © 2024 EQLZR. All rights reserved.
+        </footer>
+    </div>
+</body>
+
+</html>
